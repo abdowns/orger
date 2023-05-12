@@ -2,35 +2,42 @@ import './App.css';
 
 import { useState } from 'react'
 
-import Item from './components/Item.js'
-import Button from './components/Button.js'
+import Item from './components/Item'
+import Button from './components/Button'
+import NavSection from './components/NavSection';
 import GetList, { AddItem } from './TodoList.js'
 import { defaultItem } from './data.js'
 
-export const [items, setItems] = useState([defaultItem]);
-
 function App() {
 
-  // const [items, setItems] = useState(["sample item"]);
+  const itemProps = {
+    title: "new item",
+    description: "new description",
+  };
+
+  const [items, setItems] = useState([itemProps]);
   
   function addItem(){
-    const itemProps = {
-      title: "new item",
-      description: "new description",
-    };
-    
     setItems([...items, itemProps]);
   }
 
-  //  <GetList />
-
   return (
-    <div className="App">
-      <Button text={"Add item"} callback={addItem} />
-  
-      {items.map((props, i) => (
-        <Item title={props.title} description={props.description}/>)
-      )}
+    <div className="app">
+
+      <div className="nav">
+        <NavSection title={"section 1"}/>
+        <NavSection title={"section 2"}/>
+      </div>
+
+      <div className="content">
+        <Button text={"Add item"} callback={addItem} />
+        
+        {items.map((props, i) => (
+          <Item title={props.title} description={props.description}/>)
+        )}
+      </div>
+
+      
     </div>
   );
 }

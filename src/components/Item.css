@@ -1,4 +1,6 @@
 .item{
+  background: white;
+
   border: solid;
   border-color: lightgray;
   border-width: 1px;
