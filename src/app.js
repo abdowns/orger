@@ -1,12 +1,13 @@
-import './App.css';
+import './app.css';
 
 import { useState } from 'react'
 
-import Item from './components/Item'
-import Button from './components/Button'
-import NavSection from './components/NavSection';
-import GetList, { AddItem } from './TodoList.js'
-import { defaultItem } from './data.js'
+import Item from './components/item'
+import Button from './components/button'
+import NavBar from './components/nav/navbar'
+
+// import GetList, { AddItem } from './TodoList.js'
+// import { defaultItem } from './data.js'
 
 function App() {
 
@@ -14,6 +15,12 @@ function App() {
     title: "new item",
     description: "new description",
   };
+
+  function testCallback(){
+    console.log("hello");
+  }
+
+  
 
   const [items, setItems] = useState([itemProps]);
   
@@ -24,10 +31,7 @@ function App() {
   return (
     <div className="app">
 
-      <div className="nav">
-        <NavSection title={"section 1"}/>
-        <NavSection title={"section 2"}/>
-      </div>
+      <NavBar/>
 
       <div className="content">
         <Button text={"Add item"} callback={addItem} />
