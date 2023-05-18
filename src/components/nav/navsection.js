@@ -1,6 +1,6 @@
-import './nav.css'
+import "./nav.css";
 
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export default function NavSection({ title, itemList }) {
   return (
@@ -22,11 +22,9 @@ export default function NavSection({ title, itemList }) {
 
 function NavItem({ title, link, callback }) {
   return (
-    <div className="item" onClick={callback}>
+    <Link to={link} className="item" onClick={callback}>
       <div className="item-icon"></div>
       <p className="item-title"> {title} </p>
-
-      <Link to={link}></Link>
-    </div>
+    </Link>
   );
 }

@@ -1,6 +1,6 @@
 import './nav.css'
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import NavSection from './navsection'
 
@@ -12,10 +12,15 @@ export default function NavBar(){
   
   const itemList = [
     {
-      title: "todo",
-      link: "/todo",
+      title: "Todo",
+      link: "todo",
       callback: testCallback
     },
+    {
+      title: "Dashboad",
+      link: "dashboard",
+      callback: testCallback
+    }
   ];
   
   return (

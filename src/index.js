@@ -1,30 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider
-} from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import './index.css';
-import App from './routes/app';
-import Todo from './routes/todo'
+import "./index.css";
+import App from "./routes/app/app.js";
+import Todo from "./routes/todo/todo.js";
+import Dashboad from "./routes/dashboard/dashboard.js";
 
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App/>,
+    path: "/",
+    element: <App />,
     children: [
       {
-        path: 'todo',
-        element: <Todo/>,
+        path: "todo",
+        element: <Todo />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboad />,
       },
     ],
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
