@@ -1,28 +1,26 @@
 import './nav.css'
 
+import { Link } from 'react-router-dom'
+
 import NavSection from './navsection'
 
 export default function NavBar(){
+
+  function testCallback(){
+    console.log("hello");
+  }
   
   const itemList = [
     {
-      title: "test 1",
+      title: "todo",
+      link: "/todo",
       callback: testCallback
     },
-    {
-      title: "test 2",
-      callback: testCallback
-    },
-    {
-      title: "test 3",
-      callback: testCallback
-    }
   ];
   
   return (
     <div className="nav">
       <NavSection title={"section 1"} itemList={itemList}/>
-      <NavSection title={"section 2"} itemList={itemList}/>
     </div>
   );
 }
