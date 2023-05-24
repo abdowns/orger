@@ -6,21 +6,17 @@ import Popup from "../../components/popup";
 
 export default function Todo() {
   const itemProps = {
-    title: "new item",
+    id: 0,
+    title: "new test",
     description: "new description",
   };
 
   const [items, setItems] = useState([itemProps]);
   const [popupState, setPopupState] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState("New note");
 
-  var nameChanges = 0;
-
-  // not working
   useEffect(() => {
-    nameChanges++;
-
-    if (nameChanges > 1) {
+    if (popupState) {
       addItem();
     }
   }, [name]);
@@ -29,11 +25,16 @@ export default function Todo() {
     togglePopup();
 
     const newItemProps = {
+      id: items.length,
       title: name,
       description: "New description",
     };
 
     setItems([...items, newItemProps]);
+  }
+
+  function removeItem() {
+
   }
 
   function togglePopup() {
@@ -47,7 +48,11 @@ export default function Todo() {
       <Button text={"Add item"} callback={togglePopup} />
 
       {items.map((props, i) => (
-        <Item title={props.title} description={props.description} />
+        <Item 
+          title={props.title} 
+          description={props.description} 
+          callback={removeItem}
+        />
       ))}
     </div>
   );
