@@ -7,7 +7,7 @@ import Popup from "../../components/popup";
 export default function Todo() {
   const itemProps = {
     id: 0,
-    title: "new test",
+    title: "new testnew testnew testnew testnew testnew test",
     description: "new description",
   };
 
@@ -21,20 +21,29 @@ export default function Todo() {
     }
   }, [name]);
 
+  var currentIndex = 1;
   function addItem() {
     togglePopup();
 
     const newItemProps = {
-      id: items.length,
+      id: currentIndex,
       title: name,
       description: "New description",
     };
 
     setItems([...items, newItemProps]);
+    currentIndex++;
   }
 
-  function removeItem() {
+  function removeItem(id) {
+    // items.forEach((item, i) => {
+    //   if (item.id === id) {
 
+    //   }
+    // });
+
+    // fix
+    setItems(items.filter((item) => item.id !== id));
   }
 
   function togglePopup() {
@@ -48,11 +57,7 @@ export default function Todo() {
       <Button text={"Add item"} callback={togglePopup} />
 
       {items.map((props, i) => (
-        <Item 
-          title={props.title} 
-          description={props.description} 
-          callback={removeItem}
-        />
+        <Item props={props} callback={removeItem} />
       ))}
     </div>
   );

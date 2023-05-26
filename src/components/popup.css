@@ -7,7 +7,10 @@
   width: 50vh;
   height: 25vh;
 
+  border: solid;
   border-radius: 10px;
+  border-width: 1px;
+  border-color: gray;
 
   align-items: center;
   text-align: center;
@@ -15,7 +18,7 @@
   animation-name: open;
   animation-duration: 0.5s;
 
-  background: red;
+  background: white;
 }
 
 .popup-title {
@@ -26,8 +29,10 @@
 .popup-input {
   margin-top: 5vh;
 
+  border: solid;
   border-radius: 10px;
-  border-width: 0px;
+  border-width: 1px;
+  border-color: lightgray;
 
   width: 40vh;
   height: 5vh;
