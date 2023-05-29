@@ -1,11 +1,14 @@
 .popup-box {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   width: 50vh;
   height: 25vh;
+
+  margin-left: -25vh;
+  margin-top: -12.5vh;
 
   border: solid;
   border-radius: 10px;
@@ -17,6 +20,7 @@
 
   animation-name: open;
   animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 
   background: white;
 }

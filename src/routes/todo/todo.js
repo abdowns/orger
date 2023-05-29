@@ -1,19 +1,44 @@
+import "./todo.css"
+
 import { useState, useEffect } from "react";
 
+import Column from "./column";
 import Item from "../../components/item";
 import Button from "../../components/button";
 import Popup from "../../components/popup";
 
 export default function Todo() {
-  const itemProps = {
-    id: 0,
-    title: "new testnew testnew testnew testnew testnew test",
-    description: "new description",
-  };
+  // const itemProps = {
+  //   id: 0,
+  //   title: "new testnew testnew testnew testnew testnew test",
+  //   description: "new description",
+  // };
 
-  const [items, setItems] = useState([itemProps]);
+  const defaultColumns = [
+    {
+      id: 0,
+      title: "To-do",
+      items: [],
+    },
+    {
+      id: 1,
+      title: "Doing",
+      items: [],
+    },
+    {
+      id: 2,
+      title: "Done",
+      items: [],
+    },
+  ];
+
+  // const [items, setItems] = useState([itemProps]);
+  const [name, setName] = useState("New note"); // make this accesible to all columns
+
+  const [columns, setColumns] = useState(defaultColumns);
+  const [currentColumn, setCurrentColumn] = useState(0);
+
   const [popupState, setPopupState] = useState(false);
-  const [name, setName] = useState("New note");
 
   useEffect(() => {
     if (popupState) {
@@ -21,32 +46,58 @@ export default function Todo() {
     }
   }, [name]);
 
-  var currentIndex = 1;
   function addItem() {
     togglePopup();
 
+    const newId = createId();
     const newItemProps = {
-      id: currentIndex,
+      id: newId,
       title: name,
       description: "New description",
     };
 
-    setItems([...items, newItemProps]);
-    currentIndex++;
+    setColumns(
+      columns.map((column) =>
+        column.id === currentColumn
+        ? {
+            ...column,
+            items: [...column.items, newItemProps],
+          }
+        : {...column}
+      )
+    );
   }
+
+  // make list of columns
+  // each with own index
+  // iterate through each column and instantiate
+  // pass the index into each column with the column props
+  // pass own index into popupcallback
+  // make state that tracks current column
+  // add to that column in addItem
 
   function removeItem(id) {
-    // items.forEach((item, i) => {
-    //   if (item.id === id) {
+    // Find the item's column; need to store this in a temporary variable.
+    // > if you just setCurrentColumn, the value would not be updated in time
+    //   for the `columns.map((column) => column.id === currentColumn)`, therefore
+    //   a temporary variable `targetColumn` is required.
+    let targetColumn = columns.find(col => col.items.find(it => it.id === id) !== undefined).id;
+    setCurrentColumn(targetColumn);
 
-    //   }
-    // });
-
-    // fix
-    setItems(items.filter((item) => item.id !== id));
+    setColumns(
+      columns.map((column) =>
+        column.id === targetColumn
+        ? {
+            ...column,
+            items: column.items.filter((item) => item.id !== id)
+          }
+        : {...column}
+      )
+    )
   }
 
-  function togglePopup() {
+  function togglePopup(columnId) {
+    setCurrentColumn(columnId);
     setPopupState(!popupState);
   }
 
@@ -54,11 +105,27 @@ export default function Todo() {
     <div>
       {popupState && <Popup title={"Note Title"} state={setName} />}
 
-      <Button text={"Add item"} callback={togglePopup} />
+      <div className="column-container">
 
-      {items.map((props, i) => (
-        <Item props={props} callback={removeItem} />
-      ))}
+        {columns.map((props, i) => (
+          <Column
+            key={i}
+            props={props}
+            popupCallback={togglePopup}
+            buttonCallback={removeItem}
+          />
+        ))}
+        
+      </div>
+
+      
     </div>
   );
+}
+
+export function createId() {
+  const timestamp = Date.now().toString();
+  const random = Math.floor(Math.random() * 1000);
+
+  return parseInt(timestamp.substr(-9) + random);
 }
