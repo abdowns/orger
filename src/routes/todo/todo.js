@@ -40,6 +40,8 @@ export default function Todo() {
 
   const [popupState, setPopupState] = useState(false);
 
+  const [editorState, setEditorState] = useState(false);
+
   useEffect(() => {
     if (popupState) {
       addItem();

@@ -1,25 +1,33 @@
 import "./item.css";
 
+import { useState } from "react";
+import { click } from "@testing-library/user-event/dist/click";
+
 // to be used
-import Draggable, { DraggableCore } from "react-draggable";
+// import Draggable, { DraggableCore } from "react-draggable";
 
-export default function Item({ props, callback }) {
-  return (
-    <div className="item">
-      <img className="thumbnail" src="thumbnail.png" alt="" />
+export default function Item({ props, clickCallback, buttonCallback }) {
+    const [title, setTitle] = useState(props.title);
+    const [description, setDescription] = useState(props.description);
 
-      <div className="text-section">
-        <p className="title"> {props.title} </p>
+    return (
+      <div className="item" onClick={() => {
+        clickCallback(title, setTitle, description, setDescription);
+      }}>
+        <img className="thumbnail" src="thumbnail.png" alt="" />
 
-        <p className="description"> {props.description} </p>
+        <div className="text-section">
+          <p className="title"> {title} </p>
+
+          <p className="description"> {description} </p>
+        </div>
+
+        <div
+          className="corner-button"
+          onClick={() => {
+            buttonCallback(props.id);
+          }}
+        ></div>
       </div>
-
-      <div
-        className="corner-button"
-        onClick={() => {
-          callback(props.id);
-        }}
-      ></div>
-    </div>
-  );
+    );
 }

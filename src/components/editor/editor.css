@@ -1,0 +1,38 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+
+    padding: 2vh;
+
+    background: lightgray;
+}
+
+.title-input {
+    flex-grow: 1;
+    max-height: 5vh;
+    padding: 1vh;
+
+    font-size: 22px;
+
+    border-radius: 10px;
+    border: none;
+}
+
+.main-input {
+    flex-grow: 1;
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+    padding: 1vh;
+
+    font-size: 18px;
+    resize: none;
+
+    border-radius: 10px;
+    border: none;
+}

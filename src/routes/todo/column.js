@@ -1,11 +1,39 @@
 import "./todo.css";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Item from "../../components/item";
 import Button from "../../components/button"
 
+import { EditorContext } from "../app/app";
+
 export default function Column({props, popupCallback, buttonCallback}) {
+    const [editorState, setEditorState] = useContext(EditorContext);
+
+    function itemClick(title, setTitle, description, setDescription) {
+        if (editorState.enabled) {
+            setEditorState((prevState) => ({
+                ...prevState,
+                enabled: false
+            }));
+        } else {
+            // on item click, it item.js call the clickCallback function and pass in \
+            // info props back into this function
+
+            const newEditorState = {
+                enabled: true,
+
+                title: title,
+                setTitle: setTitle,
+
+                description: description,
+                setDescription: setDescription,
+            }
+
+            setEditorState(newEditorState);
+        }
+    }
+
     return (
         <div className="column">
             
@@ -25,7 +53,8 @@ export default function Column({props, popupCallback, buttonCallback}) {
                 <Item
                     key={i}
                     props={itemProps}
-                    callback={buttonCallback}
+                    clickCallback={itemClick}
+                    buttonCallback={buttonCallback}
                 />
             ))}
         </div>
