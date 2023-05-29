@@ -10,6 +10,7 @@ export default function NavSection({ title, itemList }) {
       <div className="list">
         {itemList.map((item, i) => (
           <NavItem
+            key={i}
             title={item.title}
             link={item.link}
             callback={item.callback}
