@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "todo",
+        path: "todo/:id",
         element: <Todo />,
       },
       {

@@ -1,18 +1,24 @@
 import "./nav.css";
 
 import { Link } from "react-router-dom";
+import Button from "../button";
 
-export default function NavSection({ title, itemList }) {
+export default function NavSection({ title, buttonCallback, itemList }) {
   return (
     <div className="section">
-      <p className="title"> {title} </p>
+      <div className="header">
+        <p className="title"> {title} </p>
+        <button onClick={() => {
+          buttonCallback();
+        }}/>
+      </div>
 
       <div className="list">
         {itemList.map((item, i) => (
           <NavItem
             key={i}
             title={item.title}
-            link={item.link}
+            link={item.link + "/" + i.toString()}
             callback={item.callback}
           />
         ))}
@@ -21,6 +27,8 @@ export default function NavSection({ title, itemList }) {
   );
 }
 
+//So when this code runs the title is displayed and the link happens with the link @ 124 milliseconds per hour
+// So when I do this they can not
 function NavItem({ title, link, callback }) {
   return (
     <Link to={link} className="item" onClick={callback}>

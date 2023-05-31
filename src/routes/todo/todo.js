@@ -1,4 +1,4 @@
-import "./todo.css"
+import "./todo.css";
 
 import { useState, useEffect } from "react";
 
@@ -8,12 +8,6 @@ import Button from "../../components/button";
 import Popup from "../../components/popup";
 
 export default function Todo() {
-  // const itemProps = {
-  //   id: 0,
-  //   title: "new testnew testnew testnew testnew testnew test",
-  //   description: "new description",
-  // };
-
   const defaultColumns = [
     {
       id: 0,
@@ -32,7 +26,6 @@ export default function Todo() {
     },
   ];
 
-  // const [items, setItems] = useState([itemProps]);
   const [name, setName] = useState("New note"); // make this accesible to all columns
 
   const [columns, setColumns] = useState(defaultColumns);
@@ -61,11 +54,11 @@ export default function Todo() {
     setColumns(
       columns.map((column) =>
         column.id === currentColumn
-        ? {
-            ...column,
-            items: [...column.items, newItemProps],
-          }
-        : {...column}
+          ? {
+              ...column,
+              items: [...column.items, newItemProps],
+            }
+          : { ...column }
       )
     );
   }
@@ -83,19 +76,21 @@ export default function Todo() {
     // > if you just setCurrentColumn, the value would not be updated in time
     //   for the `columns.map((column) => column.id === currentColumn)`, therefore
     //   a temporary variable `targetColumn` is required.
-    let targetColumn = columns.find(col => col.items.find(it => it.id === id) !== undefined).id;
+    let targetColumn = columns.find(
+      (col) => col.items.find((it) => it.id === id) !== undefined
+    ).id;
     setCurrentColumn(targetColumn);
 
     setColumns(
       columns.map((column) =>
         column.id === targetColumn
-        ? {
-            ...column,
-            items: column.items.filter((item) => item.id !== id)
-          }
-        : {...column}
+          ? {
+              ...column,
+              items: column.items.filter((item) => item.id !== id),
+            }
+          : { ...column }
       )
-    )
+    );
   }
 
   function togglePopup(columnId) {
@@ -108,7 +103,6 @@ export default function Todo() {
       {popupState && <Popup title={"Note Title"} state={setName} />}
 
       <div className="column-container">
-
         {columns.map((props, i) => (
           <Column
             key={i}
@@ -117,10 +111,7 @@ export default function Todo() {
             buttonCallback={removeItem}
           />
         ))}
-        
       </div>
-
-      
     </div>
   );
 }
