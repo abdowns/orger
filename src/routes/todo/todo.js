@@ -1,34 +1,23 @@
 import "./todo.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import Column from "./column";
 import Item from "../../components/item";
 import Button from "../../components/button";
 import Popup from "../../components/popup";
 
+import { ProjectContext } from "../app/app";
+
 export default function Todo() {
-  const defaultColumns = [
-    {
-      id: 0,
-      title: "To-do",
-      items: [],
-    },
-    {
-      id: 1,
-      title: "Doing",
-      items: [],
-    },
-    {
-      id: 2,
-      title: "Done",
-      items: [],
-    },
-  ];
+  const { id } = useParams();
 
   const [name, setName] = useState("New note"); // make this accesible to all columns
 
-  const [columns, setColumns] = useState(defaultColumns);
+  const [projects, setProjects] = useContext(ProjectContext);
+
+  const [columns, setColumns] = useState(projects[id]);
   const [currentColumn, setCurrentColumn] = useState(0);
 
   const [popupState, setPopupState] = useState(false);
@@ -40,6 +29,18 @@ export default function Todo() {
       addItem();
     }
   }, [name]);
+
+  function updateProject() {
+    // setProjects(
+    //   projects.map((project, i) =>
+    //     i === id
+    //     ? { columns }
+    //     : { ...project }
+    //   )
+    // )
+
+    setProjects([...projects, columns]);
+  }
 
   function addItem() {
     togglePopup();
@@ -61,6 +62,8 @@ export default function Todo() {
           : { ...column }
       )
     );
+
+    updateProject();
   }
 
   // make list of columns
@@ -97,6 +100,9 @@ export default function Todo() {
     setCurrentColumn(columnId);
     setPopupState(!popupState);
   }
+
+  console.log(projects)
+  console.log(columns)
 
   return (
     <div>
