@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/orger/static/css/main.29a1c327.css",
+    "main.js": "/orger/static/js/main.51a08495.js",
+    "index.html": "/orger/index.html",
+    "main.29a1c327.css.map": "/orger/static/css/main.29a1c327.css.map",
+    "main.51a08495.js.map": "/orger/static/js/main.51a08495.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.29a1c327.css",
+    "static/js/main.51a08495.js"
+  ]
+}
